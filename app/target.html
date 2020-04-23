@@ -1,0 +1,82 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="style/style.css">
+    <link type='text/css' href='https://fonts.googleapis.com/css?family=Lato:400,700' />
+</head>
+<body id="profile_body" onload=loadTarget()>
+    
+<div id="profile">
+    <div id="enhance" style="display: none;">
+        <img id="enhanced_photo" src="https://via.placeholder.com/1000x500" width="1000px" height="500px" alt="" onclick="notEnhance()">
+        <div class="comment" id="comment">
+            <img  class="comment_avatar" id="enhanced_avatar" src="assets/placeholder_avatar.png" alt="" height="65px" width="65px">
+            <span class="comment_username" id="enhanced_username">Nick</span>
+            <span class="comment" id="enhanced_description">Opis</span>
+        </div>
+        <div id="comment_section">
+       
+        </div>
+        
+        <div class="comment" id="likes">
+            <img id="comment_icon" src="assets/icon_like.png" width="45" height="45" alt="">
+            <img id="comment_icon" src="assets/icon_comment.png" width="45" height="45" alt="">
+            <span style="margin: auto;">Likes: 25</span>
+            <span style="margin: auto;">Added: </span>
+        </div>
+        
+        <div class="comment" id="add_comment">
+            <input id="add_comment_form" placeholder="Add comment..." type="text">
+            <a href="target.html" class="myButton" onClick="addComment()">Publish</a>
+        </div>
+    </div>
+    <div id="navbar">
+        <div><img src="assets/logo_banner.png" width="160px" height="50px" alt=""></div>
+        <div>
+            <form action="#" onsubmit="">
+            <input type="text" name="" id="desired_user" placeholder="user">
+            <input type="submit"  value="wyszukaj" name="" id="" placeholder="Wyszukaj">
+              </form>
+              
+        </div>
+        <div>
+            <img class="menu_icon" src="assets/home_icon.png" onclick="goHome()" alt=""> 
+            <img class="menu_icon" src="assets/profile_icon.png" onclick="goProfile()" alt="">
+            </div>
+       
+    </div>
+
+    <div id="profile_info">
+        <div id="profile_avatar"> 
+            <div><img id="avatar" src="assets/placeholder_avatar.png" width="150px" height="150px" alt=""></div> 
+            <div id="profile_details">
+                <span id="username" style="font-size:32px;">user_name</span>
+                <br> 
+                <span id="posts">Posts:</span>
+                <span id="followers">Followers:</span>
+                <span id="following">Following:</span>
+            </div>
+        </div>
+       
+        
+            <div id="profile_buttons">
+                <button id="follow_button" class="profile_button" onclick="followUser()">Follow</button>
+                
+            </div>
+        
+    </div>
+
+    <div id="description"> Opis profilu</div>
+ 
+    <div id="photos">
+       
+      
+
+    </div>
+
+
+
+</div>
+<script src="skrypty/profile.js"></script>
+</body>
+</html>
