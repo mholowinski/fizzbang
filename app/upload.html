@@ -1,0 +1,31 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="style/upload.css">
+    <link type='text/css' href='https://fonts.googleapis.com/css?family=Lato:400,700' />
+    <title>Upload new photo</title>
+</head>
+<body onload="imageSelected()">
+    <div id="small_navbar">
+        <img id="small_logo" src="assets/logo_banner.png" alt="" width="167" height="48">
+    </div>
+
+    
+        <div id="small_main">
+            <div id="small_left_container">
+                <span>Photo</span>
+                <img id="small_image" src="assets/upload_placeholder.png" alt="" onclick="selectImage()" data-status="waiting">
+            </div>
+        
+            <div id="small_right_container">
+                <span>Description</span>
+                <textarea id="small_description" name="" id="" cols="30" rows="10"></textarea>
+            </div>
+
+            <button  id="small_upload_button" onclick="uploadImage()" >Upload</button>
+        </div>
+
+        <script src="skrypty/profile.js"></script>
+        <script src="skrypty/upload.js"></script>
+</body>
+</html>

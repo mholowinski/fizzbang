@@ -53,3 +53,7 @@ body{
     width: 75px;
     height: 75px;
 }
+
+.menu_icon{
+    cursor: pointer;
+}

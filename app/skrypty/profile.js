@@ -1,7 +1,12 @@
 let sqlite3 = require('sqlite3').verbose();
 const { dialog } = require('electron').remote
+const { BrowserWindow } = require('electron').remote
+const { ipcMain } = require('electron').remote;
+
 const jetpack = require('fs-jetpack');
 let db = new sqlite3.Database('database.db');
+
+
 
 //ODCZYTAJ DZISIEJSZĄ DATĘ
 let today = new Date();
@@ -10,10 +15,13 @@ let time = today.getDate()+"-"+(today.getMonth()+1)+"-"+today.getFullYear()
 //Pobieranie ID zalogowanego użytkownika z session storage
 let user_id = sessionStorage.getItem("user_id");
 
+console.log(user_id)
+
+
+
 //Wczytywanie profilu zalogowanego użytkownika
 function loadProfile(){
-    console.log(time)
-    console.log(sessionStorage.getItem("current_user"));
+    console.log(time);
     let user_id = sessionStorage.getItem("user_id");
 
  db.get("SELECT * FROM user WHERE id_user = ?",user_id,  function (err, row) {
@@ -86,17 +94,34 @@ function goHome(){
 }
 
 //Udostępnianie zdjęć
-function uploadPhoto(){
-  let user_id = sessionStorage.getItem("user_id");
-  const file_path = dialog.showOpenDialog();
-  const data = jetpack.read(file_path[0],"buffer");
-  
-    db.serialize(function(){
-      let statement = db.prepare("INSERT INTO photos VALUES (?,?,?,?,?)");
-      statement.run(null,data,"opis",null,user_id);
 
-      statement.finalize();
+
+
+
+
+function uploadClick(){
+
+      let win = new BrowserWindow({
+        width: 800,
+        height: 520,
+        resizable: false,
+        webPreferences: {
+          nodeIntegration: true
+        }
+      });
+
+    win.on('closed', () => {
+      win = null
     })
+    win.webContents.openDevTools()
+    // Load a remote URL
+
+    win.webContents.on('dom-ready', () => {
+      win.webContents.send('user_id', user_id);
+    });
+win.loadURL(`file://${__dirname}/upload.html`)
+
+
 }
 
 //Kliknij i powiększ zdjęcie

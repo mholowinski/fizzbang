@@ -37,3 +37,7 @@ body{
     font-size: 25px;
     font-weight: bold;
 }
+
+.menu_icon{
+    cursor: pointer;
+}
