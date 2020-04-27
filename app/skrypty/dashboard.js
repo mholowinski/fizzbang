@@ -2,7 +2,7 @@ function loadPosts(){
 
     let posts = document.getElementById("posts")
 
-db.each("select * from photos as p join following as f on f.id_follower = p.id_user join user as u on u.id_user = p.id_user where f.id_user = ? order by p.date_added desc", user_id,  function (err, row) {
+db.each("select * from photos as p join following as f on f.id_user = p.id_user join user as u on u.id_user = p.id_user where f.id_follower = ? order by p.date_added desc", user_id,  function (err, row) {
     if (err) {
       return console.error(err.message);
     }

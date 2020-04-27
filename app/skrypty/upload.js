@@ -58,8 +58,15 @@ function uploadImage(){
         
             statement.finalize();
              });
+
+        db.serialize(function (){
+            let statement = db.prepare("UPDATE user SET posts = posts + 1 WHERE id_user = ?");
+            statement.run(user_id);
+            statement.finalize();
+        });
     
-  // win.close();
+   //win.close();
+   
 }
 
 

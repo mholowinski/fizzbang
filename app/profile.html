@@ -44,13 +44,13 @@
     <div id="profile_info">
         <div id="profile_avatar"> 
             <img  id="icon_edit" src="assets/icon_edit.png" width="100px" height="100px" alt="" style="display: none;" onclick="uploadProfilePicture()">
-            <div><img id="avatar" src="assets/placeholder_avatar.png" width="150px" height="150px" alt=""></div> 
+            <div><img id="avatar" src="" width="150px" height="150px" alt=""></div> 
             <div id="profile_details">
-                <span id="username" style="font-size:32px;">user_name</span>
+                <span id="username" style="font-size:32px;"></span>
                 <br> 
                 <span id="posts">Posts:</span>
-                <span id="followers">Followers:</span>
-                <span id="following">Following:</span>
+                <span onclick="showFollowers()" id="followers">Followers:</span>
+                <span onclick="showFollowing()" id="following">Following:</span>
             </div>
         </div>
        
@@ -65,13 +65,11 @@
     
     <div id="description_box">
         <span id="description"></span>
-         <img id="icon_edit_description" src="assets/icon_edit.png" width="25px" height="25px" alt="" style="cursor: pointer; display: none;">
+         
         </div>
         
     <div id="photos">
-       
-      
-
+  
     </div>
 
 

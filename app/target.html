@@ -12,18 +12,13 @@
         <div class="comment" id="comment">
             <img  class="comment_avatar" id="enhanced_avatar" src="assets/placeholder_avatar.png" alt="" height="65px" width="65px">
             <span class="comment_username" id="enhanced_username">Nick</span>
-            <span class="comment" id="enhanced_description">Opis</span>
+            <span class="comment" id="enhanced_description"></span>
         </div>
         <div id="comment_section">
        
         </div>
         
-        <div class="comment" id="likes">
-            <img id="comment_icon" src="assets/icon_like.png" width="45" height="45" alt="">
-            <img id="comment_icon" src="assets/icon_comment.png" width="45" height="45" alt="">
-            <span style="margin: auto;">Likes: 25</span>
-            <span style="margin: auto;">Added: </span>
-        </div>
+        
         
         <div class="comment" id="add_comment">
             <input id="add_comment_form" placeholder="Add comment..." type="text">
@@ -33,10 +28,9 @@
     <div id="navbar">
         <div><img src="assets/logo_banner.png" width="160px" height="50px" alt=""></div>
         <div>
-            <form action="#" onsubmit="">
-            <input type="text" name="" id="desired_user" placeholder="user">
-            <input type="submit"  value="wyszukaj" name="" id="" placeholder="Wyszukaj">
-              </form>
+
+            <input type="text" name="" id="desired_user" placeholder="Username">
+            <button onclick="searchUser()">Search</button>
               
         </div>
         <div>
@@ -48,7 +42,7 @@
 
     <div id="profile_info">
         <div id="profile_avatar"> 
-            <div><img id="avatar" src="assets/placeholder_avatar.png" width="150px" height="150px" alt=""></div> 
+            <div><img id="avatar" src="" width="150px" height="150px" alt=""></div> 
             <div id="profile_details">
                 <span id="username" style="font-size:32px;">user_name</span>
                 <br> 
@@ -66,7 +60,10 @@
         
     </div>
 
-    <div id="description"> Opis profilu</div>
+     <div id="description_box">
+        <span id="description"></span>
+         
+        </div>
  
     <div id="photos">
        

@@ -12,11 +12,13 @@ function loadSearch(){
     let search_results = document.getElementById("search_results");
     console.log(desired_user)
     desired_user = desired_user + '%';
+
+    search_target.innerText = desired_user.substring(0,desired_user.length -1);
+
     db.each("SELECT * FROM user WHERE login LIKE ? ",desired_user, function(err, row) {
         if (err) {
           return console.error(err.message);
         }
-    
         if(row){
             console.log(row)
             let search_single = document.createElement("div")
@@ -27,7 +29,7 @@ function loadSearch(){
             search_avatar.classList.add("search_avatar");
             search_username.classList.add("search_username");
             
-            search_target.innerText = desired_user;
+            search_target.innerText = desired_user.substring(0,desired_user.length -1);
             search_username.innerText = row.login;
 
             search_username.setAttribute("data-userid",row.id_user);
@@ -40,16 +42,12 @@ function loadSearch(){
             search_single.appendChild(search_avatar);
             search_single.appendChild(search_username);
             search_results.appendChild(search_single);
-    
-    
         }else{
+            
             console.log("Użytkownik nie istnieje!")
         }
       });
 }
-
-
-
 
 function searchUser(){
     let desired_user = document.getElementById("desired_user").value;
@@ -60,3 +58,35 @@ function searchUser(){
   }
 
 
+  function showFollowers(){
+    let user_id = sessionStorage.getItem("user_id")
+    db.each("SELECT * FROM user as u join following as f on f.id_follower = u.id_user where f.id_user = ? ",user_id, function(err, row) {
+      if (err) {
+        return console.error(err.message);
+      }
+      if(row){
+        console.log(row)
+         
+      }else{
+          
+          console.log("Użytkownik nie istnieje!")
+      }
+    });
+  }
+  
+  
+  function showFollowing(){
+    let user_id = sessionStorage.getItem("user_id")
+    db.each("SELECT * FROM user as u join following as f on f.id_user = u.id_user where f.id_follower = ? ",user_id, function(err, row) {
+      if (err) {
+        return console.error(err.message);
+      }
+      if(row){
+        console.log(row)
+         
+      }else{
+          
+          console.log("Użytkownik nie istnieje!")
+      }
+    });
+  }

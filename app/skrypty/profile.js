@@ -6,18 +6,12 @@ const { ipcMain } = require('electron').remote;
 const jetpack = require('fs-jetpack');
 let db = new sqlite3.Database('database.db');
 
-
-
 //ODCZYTAJ DZISIEJSZĄ DATĘ
 let today = new Date();
 let time = today.getDate()+"-"+(today.getMonth()+1)+"-"+today.getFullYear()
 
 //Pobieranie ID zalogowanego użytkownika z session storage
 let user_id = sessionStorage.getItem("user_id");
-
-console.log(user_id)
-
-
 
 //Wczytywanie profilu zalogowanego użytkownika
 function loadProfile(){
@@ -92,15 +86,8 @@ function goProfile(){
 function goHome(){
   window.location.href="dashboard.html"
 }
-
-//Udostępnianie zdjęć
-
-
-
-
-
+//Popup window
 function uploadClick(){
-
       let win = new BrowserWindow({
         width: 800,
         height: 520,
@@ -114,14 +101,11 @@ function uploadClick(){
       win = null
     })
     win.webContents.openDevTools()
-    // Load a remote URL
 
     win.webContents.on('dom-ready', () => {
       win.webContents.send('user_id', user_id);
     });
 win.loadURL(`file://${__dirname}/upload.html`)
-
-
 }
 
 //Kliknij i powiększ zdjęcie
@@ -317,8 +301,6 @@ function searchUser(){
 
 //WŁĄCZ EDYTOWANIE PROFILU
 function editProfile(){
-  console.log("xd")
-
   let icon_edit = document.getElementById("icon_edit")
   let icon_edit_description = document.getElementById("icon_edit_description")
   
@@ -327,13 +309,9 @@ function editProfile(){
   } else {
     icon_edit.style.display = "none";
   }
-
-
-
 }
 //ZMIEŃ ZDJĘCIE PROFILOWE
 function uploadProfilePicture(){
-  
     let user_id = sessionStorage.getItem("user_id");
     const file_path = dialog.showOpenDialog();
     const data = jetpack.read(file_path[0],"buffer");
@@ -341,13 +319,10 @@ function uploadProfilePicture(){
       db.serialize(function(){
         let statement = db.prepare("UPDATE user SET profile_pic = ? WHERE id_user = ?");
         statement.run(data,user_id);
-  
         statement.finalize();
       })
-
   window.location.href = "profile.html"
 }
-
 
 //ZMIEŃ OPIS PROFILU
 function editProfileDescription(){
@@ -356,19 +331,60 @@ function editProfileDescription(){
 
 function followUser(){
   console.log(sessionStorage.getItem("target_id"));
-  
   let target_id = sessionStorage.getItem("target_id");
-  
 
   db.serialize(function(){
     console.log("finna prepare statement")
     let statement = db.prepare("INSERT INTO following VALUES (?,?,?)");
     statement.run(null,target_id,user_id);
-
     statement.finalize();
   });
-  
-  window.location.href = "target.html"
 
+  db.serialize(function(){
+
+    let statement = db.prepare("UPDATE user SET following = following + 1 WHERE id_user = ?");
+    statement.run(user_id);
+    statement.finalize();
+    
+  });
+
+  db.serialize(function(){
+    let statement = db.prepare("UPDATE user SET followers = followers + 1 WHERE id_user = ?");
+    statement.run(target_id);
+    statement.finalize();
+  });
+  window.location.href = "target.html"
 }
 
+function showFollowers(){
+  let user_id = sessionStorage.getItem("user_id")
+  db.each("SELECT * FROM user as u join following as f on f.id_follower = u.id_user where f.id_user = ? ",user_id, function(err, row) {
+    if (err) {
+      return console.error(err.message);
+    }
+    if(row){
+      console.log(row)
+       
+    }else{
+        
+        console.log("Użytkownik nie istnieje!")
+    }
+  });
+}
+
+
+function showFollowing(){
+  let user_id = sessionStorage.getItem("user_id")
+  db.each("SELECT * FROM user as u join following as f on f.id_user = u.id_user where f.id_follower = ? ",user_id, function(err, row) {
+    if (err) {
+      return console.error(err.message);
+    }
+    if(row){
+      console.log(row)
+       
+    }else{
+        
+        console.log("Użytkownik nie istnieje!")
+    }
+  });
+}
