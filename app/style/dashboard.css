@@ -21,7 +21,7 @@ body{
 }
 
 .dash_post{
- cursor: pointer;
+ 
 }
 
 .dash_banner{
@@ -36,6 +36,7 @@ body{
     margin-left: 25px;
     font-size: 25px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .menu_icon{

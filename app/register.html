@@ -15,13 +15,11 @@
         <br>
         <br>
 
-        <span style="color: red;">Error message</span>
+        <span style="color: red;" id="error_msg"></span>
 
-    
-        <input class="input" id="username" type="text" placeholder="USERNAME"> 
-        <input class="input" id="email" type="text" placeholder="EMAIL ADDRESS">
-        <input class="input" id="password" type="text" placeholder="PASSWORD">
-       
+        <input class="input" id="username" type="text" placeholder="USERNAME" required> 
+        <input class="input" id="email" type="email" placeholder="EMAIL ADDRESS" required>
+        <input class="input" id="password" type="text" placeholder="PASSWORD" required>
         <br>
         <br>
         <button class="profile_button" onclick="createUser()">Register</button>
@@ -30,7 +28,7 @@
       <br>
       <br>
       <div id="forward">
-        <button>Create</button>
+        
 
         <p><a href="index.html">Back to login</a></p>
       </div>
@@ -39,7 +37,7 @@
     <div id="left-background">
       <p> background</p>
     </div>
-
+    <script src="skrypty/validate.js"></script>
 <script src="skrypty/script.js"></script>
   </body>
 </html>

@@ -25,6 +25,9 @@ db.close();*/
 
 function createUser(){
 
+    if (validateRegister() === true){
+      console.log("Wszystko git")
+
     let username = document.getElementById("username").value;
     let password = document.getElementById("password").value;
 
@@ -38,11 +41,16 @@ function createUser(){
     })
    // db.close();
    window.location.href = "index.html";
+  }else{
+    console.log("Registration error")
+  }
 }
 
 function auth(){
+  if (validateLogin() === true){
     let username = document.getElementById("login_username").value;
     let password = document.getElementById("login_password").value;
+    let error_msg = document.getElementById("error_msg");
 
       db.get("SELECT * FROM user WHERE login = ? AND password = ?",username, password,  function (err, row) {
         if (err) {
@@ -53,12 +61,19 @@ function auth(){
             console.log("user exists")
             console.log(row)
             sessionStorage.setItem("user_id",row.id_user);
+            sessionStorage.setItem("user_login",row.login);
             window.location.href = "profile.html";
             
           }else{
             console.log("user dozynt eksizst")
+            error_msg.innerText = "Invalid username/password"
           }
-    })
+    });
+
+  }else{
+    console.log("Login error")
+  }
+   
 
    // db.close();
 

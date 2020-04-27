@@ -356,35 +356,3 @@ function followUser(){
   window.location.href = "target.html"
 }
 
-function showFollowers(){
-  let user_id = sessionStorage.getItem("user_id")
-  db.each("SELECT * FROM user as u join following as f on f.id_follower = u.id_user where f.id_user = ? ",user_id, function(err, row) {
-    if (err) {
-      return console.error(err.message);
-    }
-    if(row){
-      console.log(row)
-       
-    }else{
-        
-        console.log("Użytkownik nie istnieje!")
-    }
-  });
-}
-
-
-function showFollowing(){
-  let user_id = sessionStorage.getItem("user_id")
-  db.each("SELECT * FROM user as u join following as f on f.id_user = u.id_user where f.id_follower = ? ",user_id, function(err, row) {
-    if (err) {
-      return console.error(err.message);
-    }
-    if(row){
-      console.log(row)
-       
-    }else{
-        
-        console.log("Użytkownik nie istnieje!")
-    }
-  });
-}

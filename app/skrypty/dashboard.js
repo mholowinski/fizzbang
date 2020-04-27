@@ -37,6 +37,8 @@ db.each("select * from photos as p join following as f on f.id_user = p.id_user 
         let url = URL.createObjectURL(blob);
         dash_image.src = url;
         dash_username.innerText = row.login;
+        dash_username.setAttribute("onclick","selectTarget(this)")
+        dash_username.setAttribute("data-userid",row.id_user)
 
         dash_banner.appendChild(dash_avatar);
         dash_banner.appendChild(dash_username);
