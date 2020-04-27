@@ -215,27 +215,6 @@ function selectTarget(object){
   window.location.href = "target.html";
 }
 
-//SPRAWDZ CZY MNIE FOLLLOWUJE
-function checkFollowing(){ // onLoad
-  let target_id = sessionStorage.getItem("target_id");
-  let follow_button = document.getElementById("follow_button");
-  
-  db.get("SELECT * FROM following WHERE id_user = ? AND id_follower = ? ",target_id,user_id, function(err, row) {
-    if (err) {
-      return console.error(err.message);
-    }
-
-    if (row){
-      follow_button.disabled = true;
-      follow_button.innerText = "Following"
-      follow_button.classList.remove("profile_button")
-      follow_button.classList.add("profile_button_inverse")
-    }else{
-      //nie rób nic
-    }
-
-  });
-}
 
 //Załaduj klikniętego użytkownika
 function loadTarget(){
@@ -336,7 +315,7 @@ function editProfileDescription(){
 
   let description = document.getElementById("description");
   let data = description.innerText;
-  
+
   db.serialize(function(){
     let statement = db.prepare("UPDATE user SET opis = ? WHERE id_user = ?");
     statement.run(data,user_id);
@@ -346,6 +325,28 @@ window.location.href = "profile.html"
 
 }
 
+//SPRAWDZ CZY MNIE FOLLLOWUJE
+function checkFollowing(){ // onLoad
+  let target_id = sessionStorage.getItem("target_id");
+  let follow_button = document.getElementById("follow_button");
+  
+  db.get("SELECT * FROM following WHERE id_user = ? AND id_follower = ? ",target_id,user_id, function(err, row) {
+    if (err) {
+      return console.error(err.message);
+    }
+
+    if (row){
+      follow_button.innerText = "Unfollow"
+      follow_button.classList.remove("profile_button")
+      follow_button.classList.add("profile_button_inverse")
+      follow_button.setAttribute("onclick","unfollowUser()")
+    }else{
+      //nie rób nic
+    }
+
+  });
+}
+// FOLLOWUJ TYPKA
 function followUser(){
   console.log(sessionStorage.getItem("target_id"));
   let target_id = sessionStorage.getItem("target_id");
@@ -373,10 +374,39 @@ function followUser(){
   window.location.href = "target.html"
 }
 
+function unfollowUser(){
+  let target_id = sessionStorage.getItem("target_id");
+  console.log("Unfollow " +target_id)
+  console.log("My id " + user_id)
+
+  db.serialize(function(){
+    console.log("finna prepare statement")
+    let statement = db.prepare("DELETE FROM following WHERE id_user = ? AND id_follower = ?");
+    statement.run(target_id,user_id);
+    statement.finalize();
+  });
+
+  db.serialize(function(){
+
+    let statement = db.prepare("UPDATE user SET following = following - 1 WHERE id_user = ?");
+    statement.run(user_id);
+    statement.finalize();
+    
+  });
+
+  db.serialize(function(){
+    let statement = db.prepare("UPDATE user SET followers = followers - 1 WHERE id_user = ?");
+    statement.run(target_id);
+    statement.finalize();
+  });
+  window.location.href = "target.html"
+}
 
 
+//USUN FOTO I KOMENTARZE
 function deletePhoto(){
-  let photo_id = enhanced_photo.dataset.id
+  let photo_id = enhanced_photo.dataset.id;
+  let user_id = sessionStorage.getItem("user_id");
   console.log(photo_id)
 
   db.run(`DELETE FROM photos WHERE id_photo=?`, photo_id, function(err) {
@@ -392,5 +422,14 @@ function deletePhoto(){
     }
     console.log(`Row(s) deleted ${this.changes}`);
   });
+
+  db.run(`UPDATE user SET posts = posts -1 WHERE id_user = ?`, user_id, function(err) {
+    if (err) {
+      return console.error(err.message);
+    }
+    console.log(`Row(s) deleted ${this.changes}`);
+  });
+
+
   window.location.href = "profile.html"
 }
