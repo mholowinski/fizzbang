@@ -69,7 +69,28 @@ function searchUser(){
       }
       if(row){
         console.log(row)
-        print(row);
+        console.log(row)
+        let search_single = document.createElement("div")
+            let search_avatar = document.createElement("img")
+            let search_username = document.createElement("span")
+      
+        search_single.classList.add("search_single");
+        search_avatar.classList.add("search_avatar");
+        search_username.classList.add("search_username");
+        
+        
+        search_username.innerText = row.login;
+      
+        search_username.setAttribute("data-userid",row.id_follower);
+        search_username.setAttribute("onclick","selectTarget(this)")
+      
+        let blob = new Blob([row.profile_pic], { type: "image/png" });
+        let url = URL.createObjectURL(blob)
+      
+        search_avatar.src = url;
+        search_single.appendChild(search_avatar);
+        search_single.appendChild(search_username);
+        search_results.appendChild(search_single);
         let query_type = document.getElementById("query_type")
         let login = sessionStorage.getItem("user_login")
         query_type.innerText = login + "'s followers:"

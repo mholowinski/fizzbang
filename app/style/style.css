@@ -263,3 +263,9 @@
     margin-top: 50px;
 }
 
+#confirm_description{
+    cursor: pointer;
+    color: #5e2b5e;
+    font-weight: bold;
+    margin-top: 10px;
+}

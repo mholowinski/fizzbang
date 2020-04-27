@@ -302,13 +302,20 @@ function searchUser(){
 //WŁĄCZ EDYTOWANIE PROFILU
 function editProfile(){
   let icon_edit = document.getElementById("icon_edit")
-  let icon_edit_description = document.getElementById("icon_edit_description")
+  let description = document.getElementById("description");
+  let confirm_description = document.getElementById("confirm_description")
   
   if (icon_edit.style.display === "none") {
     icon_edit.style.display = "block";
+    confirm_description.style.display="block"
+    description.contentEditable = true;
+    description.focus();
   } else {
     icon_edit.style.display = "none";
+    confirm_description.style.display="none"
+    description.contentEditable = false;
   }
+
 }
 //ZMIEŃ ZDJĘCIE PROFILOWE
 function uploadProfilePicture(){
@@ -326,6 +333,16 @@ function uploadProfilePicture(){
 
 //ZMIEŃ OPIS PROFILU
 function editProfileDescription(){
+
+  let description = document.getElementById("description");
+  let data = description.innerText;
+  
+  db.serialize(function(){
+    let statement = db.prepare("UPDATE user SET opis = ? WHERE id_user = ?");
+    statement.run(data,user_id);
+    statement.finalize();
+  })
+window.location.href = "profile.html"
 
 }
 
