@@ -254,3 +254,12 @@
     margin-top: 10px;
 }
 
+
+#button_delete{
+    color: red;
+    cursor: pointer;
+    margin-left: 650px;
+    font-size: 13px;
+    margin-top: 50px;
+}
+

@@ -356,3 +356,24 @@ function followUser(){
   window.location.href = "target.html"
 }
 
+
+
+function deletePhoto(){
+  let photo_id = enhanced_photo.dataset.id
+  console.log(photo_id)
+
+  db.run(`DELETE FROM photos WHERE id_photo=?`, photo_id, function(err) {
+    if (err) {
+      return console.error(err.message);
+    }
+    console.log(`Row(s) deleted ${this.changes}`);
+  });
+
+  db.run(`DELETE FROM comment WHERE id_photo=?`, photo_id, function(err) {
+    if (err) {
+      return console.error(err.message);
+    }
+    console.log(`Row(s) deleted ${this.changes}`);
+  });
+  window.location.href = "profile.html"
+}
