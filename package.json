@@ -1,15 +1,15 @@
 {
-  "name": "electron-boilerplate-sqlite",
+  "name": "fizzbang",
   "productName": "Fizzbang",
-  "description": "",
+  "description": "Upload and share photos with your guildmates",
   "version": "1.0.0",
   "author": "",
-  "copyright": "© 2016, Kibber Ltd.",
+  "copyright": "",
   "homepage": "",
   "license": "MIT",
   "main": "app/app.js",
   "build": {
-    "appId": "com.example.electron-boilerplate-sqlite",
+    "appId": "com.example.fizzbang",
     "files": [
       "app/**/*",
       "node_modules/**/*",
@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "electron": "^5.0.6",
-    "electron-builder": "^21.0.15"
+    "electron-builder": "^21.0.15",
+    "electron-packager": "^14.2.1"
   }
 }
